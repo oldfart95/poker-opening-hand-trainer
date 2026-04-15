@@ -1,6 +1,6 @@
 # Pocket Pixel Poker
 
-Pocket Pixel Poker is now a focused **preflop trainer** for rapid repetition. It is not a solver clone and it is not trying to play full poker hands. The product loop is simple: see a hand, identify the class, account for position and action, choose a decision, get immediate feedback, then move to the next hand.
+Pocket Pixel Poker is a focused **preflop trainer** for rapid repetition. It is not a solver clone and it is not trying to play full poker hands. The product loop is simple: see a hand, identify the class, account for position and action, choose a decision, get immediate feedback, then move to the next hand.
 
 ## What it trains
 
@@ -49,15 +49,13 @@ The preflop trainer is separated by concern:
 - `src/components/TrainerComponents.tsx`: reusable trainer UI pieces.
 - `src/App.tsx`: product composition and keyboard flow.
 
-Older engine, AI, and postflop training files remain in the repo for future reuse, but the main app experience is now the preflop trainer.
-
 ## GitHub Pages deployment
 
 This project is Vite-based and already uses a relative `base` in `vite.config.ts`, so the built app works on both local preview and project Pages URLs.
 
 To publish with GitHub Pages:
 
-1. Keep or add a workflow that runs `npm ci` and `npm run build`.
+1. Keep or add a workflow that runs `npm install` and `npm run build`.
 2. Upload the generated `dist/` directory as the Pages artifact.
 3. In repository settings, set **Pages -> Source** to **GitHub Actions**.
 4. Push to the deployment branch configured by your workflow, commonly `main`.
@@ -69,7 +67,7 @@ To publish with GitHub Pages:
 - Tune `rangeLogic.ts` with configurable pool assumptions.
 - Add spaced repetition so frequently missed positions/classes appear more often.
 - Add optional hotkey labels or audio feedback for speed training.
-- Reintroduce postflop trainers as separate products instead of mixing them into the preflop loop.
+- Add postflop trainers as separate products instead of mixing them into the preflop loop.
 
 ## Design note
 
