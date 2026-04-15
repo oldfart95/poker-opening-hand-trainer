@@ -1,0 +1,597 @@
+:root {
+  color: #f8efe0;
+  background: #151312;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    linear-gradient(135deg, rgba(58, 85, 82, 0.28), transparent 34%),
+    linear-gradient(225deg, rgba(136, 86, 60, 0.2), transparent 32%),
+    #151312;
+}
+
+button {
+  border: 0;
+  border-radius: 8px;
+  color: #fff8ec;
+  background: #343331;
+  min-height: 42px;
+  padding: 10px 14px;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 10px 22px rgba(0, 0, 0, 0.18);
+  transition: transform 150ms ease, background 150ms ease, box-shadow 150ms ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  background: #45433f;
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+  transform: none;
+}
+
+.app-shell {
+  width: min(1180px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: 18px 0 28px;
+}
+
+.trainer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.kicker {
+  margin: 0 0 4px;
+  color: #8dd6c2;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 0;
+  font-size: clamp(2rem, 4vw, 4.3rem);
+  line-height: 0.95;
+  letter-spacing: 0;
+}
+
+.icon-button {
+  width: 48px;
+  aspect-ratio: 1;
+  padding: 0;
+  font-size: 1.25rem;
+  background: #23625b;
+}
+
+.trainer-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 310px;
+  gap: 16px;
+  align-items: start;
+}
+
+.trainer-main,
+.stats-panel {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(28, 27, 25, 0.88);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.32);
+  border-radius: 8px;
+}
+
+.trainer-main {
+  overflow: hidden;
+}
+
+.mode-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 12px;
+  background: rgba(10, 10, 9, 0.38);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mode-tabs button {
+  min-height: 38px;
+  padding: 8px 12px;
+  background: #292826;
+}
+
+.mode-tabs button.active {
+  background: #23625b;
+  box-shadow: inset 0 0 0 1px rgba(196, 255, 236, 0.26), 0 10px 22px rgba(19, 87, 78, 0.28);
+}
+
+.assist-toggle {
+  margin-left: auto;
+}
+
+.training-stage {
+  display: grid;
+  gap: 14px;
+  padding: 16px;
+}
+
+.context-strip {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: #f5ead8;
+  color: #17130f;
+  border-radius: 8px;
+}
+
+.context-strip span {
+  color: #5f564a;
+  font-size: 0.92rem;
+  font-weight: 800;
+}
+
+.context-strip span:last-child {
+  text-align: right;
+}
+
+.context-strip strong {
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  line-height: 1;
+}
+
+.hero-hand {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+  min-height: 220px;
+  padding: clamp(18px, 4vw, 34px);
+  border-radius: 8px;
+  background:
+    linear-gradient(145deg, rgba(48, 116, 94, 0.9), rgba(34, 78, 89, 0.92)),
+    #255f5a;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+.card-pair {
+  display: flex;
+  gap: clamp(10px, 2vw, 18px);
+}
+
+.card {
+  width: clamp(88px, 13vw, 150px);
+  aspect-ratio: 0.7;
+  display: grid;
+  align-content: space-between;
+  justify-items: start;
+  padding: clamp(12px, 2vw, 20px);
+  border-radius: 8px;
+  background: linear-gradient(145deg, #fffaf1, #d9ccb9);
+  color: #151312;
+  box-shadow: 0 18px 28px rgba(0, 0, 0, 0.28), inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+  animation: cardIn 210ms ease-out;
+}
+
+.card:nth-child(2) {
+  animation-delay: 60ms;
+}
+
+.card strong {
+  font-size: clamp(2.1rem, 5vw, 4.6rem);
+  line-height: 0.9;
+}
+
+.card span {
+  font-size: clamp(1.8rem, 4vw, 3.8rem);
+}
+
+.card.red {
+  color: #b42d31;
+}
+
+.card.black {
+  color: #1a2730;
+}
+
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) rotate(-1deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.spot-copy .eyebrow {
+  color: #bdebdc;
+  text-transform: uppercase;
+  font-size: 0.76rem;
+  font-weight: 900;
+}
+
+.spot-copy h2 {
+  margin: 6px 0;
+  font-size: clamp(2.4rem, 8vw, 6rem);
+  line-height: 0.9;
+}
+
+.spot-copy p {
+  margin: 0;
+  color: #f2e9d8;
+  font-size: clamp(1.05rem, 2vw, 1.45rem);
+  font-weight: 800;
+  text-transform: capitalize;
+}
+
+.decision-panel {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 8px;
+  background: #221f1d;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.decision-panel p {
+  margin-bottom: 0;
+  color: #d9cfbf;
+  font-size: 1.04rem;
+}
+
+.decision-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.decision {
+  min-height: 74px;
+  text-transform: uppercase;
+  font-size: clamp(1rem, 2vw, 1.28rem);
+}
+
+.decision.fold {
+  background: #75404a;
+}
+
+.decision.call {
+  background: #4d5f7a;
+}
+
+.decision.open,
+.decision.three-bet {
+  background: #bd7a2d;
+}
+
+.quick-flow {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 10px;
+}
+
+.quick-flow .next-hand {
+  background: #23625b;
+}
+
+.hint-stack {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.hint-stack article {
+  min-height: 118px;
+  padding: 12px;
+  border-radius: 8px;
+  background: #242321;
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  color: #8d8578;
+}
+
+.hint-stack article.shown {
+  border-style: solid;
+  border-color: rgba(141, 214, 194, 0.42);
+  background: #1d302d;
+  color: #efe7d9;
+}
+
+.hint-stack span {
+  display: block;
+  margin-bottom: 8px;
+  color: #8dd6c2;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  font-weight: 900;
+}
+
+.hint-stack p {
+  margin: 0;
+  line-height: 1.45;
+}
+
+.feedback {
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.feedback span {
+  display: inline-flex;
+  margin-bottom: 8px;
+  padding: 3px 8px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.12);
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.feedback h3 {
+  margin-bottom: 8px;
+  font-size: 1.5rem;
+}
+
+.feedback p {
+  margin-bottom: 8px;
+  color: #f2eadf;
+  line-height: 1.45;
+}
+
+.feedback.correct {
+  background: #1d402e;
+  border-color: rgba(128, 219, 158, 0.52);
+}
+
+.feedback.acceptable {
+  background: #3a3520;
+  border-color: rgba(235, 204, 122, 0.5);
+}
+
+.feedback.mistake {
+  background: #45252a;
+  border-color: rgba(238, 132, 132, 0.48);
+}
+
+.stats-panel {
+  display: grid;
+  gap: 14px;
+  padding: 14px;
+  position: sticky;
+  top: 14px;
+}
+
+.stats-panel section {
+  padding: 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.stat-hero {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.stat-hero span,
+.empty-note {
+  color: #aca294;
+}
+
+.stat-hero strong {
+  font-size: 2.3rem;
+}
+
+.accuracy-ring {
+  display: grid;
+  place-items: center;
+}
+
+.accuracy-ring > div {
+  --accuracy: 0%;
+  width: 154px;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: conic-gradient(#8dd6c2 var(--accuracy), #34312e 0);
+  position: relative;
+}
+
+.accuracy-ring > div::before {
+  content: "";
+  position: absolute;
+  inset: 13px;
+  border-radius: 50%;
+  background: #1c1b19;
+}
+
+.accuracy-ring strong,
+.accuracy-ring span {
+  position: relative;
+  z-index: 1;
+}
+
+.accuracy-ring strong {
+  font-size: 2rem;
+}
+
+.accuracy-ring span {
+  align-self: start;
+  color: #aca294;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.stats-panel h2 {
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  color: #8dd6c2;
+  text-transform: uppercase;
+}
+
+.miss-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0;
+  padding: 8px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.miss-row span {
+  text-transform: capitalize;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  background: rgba(0, 0, 0, 0.72);
+  z-index: 20;
+}
+
+.help-sheet {
+  width: min(760px, 100%);
+  max-height: 86vh;
+  overflow: auto;
+  border-radius: 8px;
+  padding: 18px;
+  background: #f8efe0;
+  color: #151312;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.42);
+}
+
+.sheet-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 10px;
+}
+
+.sheet-head h2 {
+  margin: 0;
+}
+
+.sheet-head button {
+  min-height: 36px;
+  width: 36px;
+  padding: 0;
+  background: #151312;
+}
+
+.help-sheet article {
+  padding: 12px 0;
+  border-top: 1px solid rgba(21, 19, 18, 0.12);
+}
+
+.help-sheet h3 {
+  margin-bottom: 8px;
+}
+
+.help-sheet ul {
+  margin: 0;
+  padding-left: 20px;
+  line-height: 1.5;
+}
+
+@media (max-width: 920px) {
+  .trainer-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-panel {
+    position: static;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hero-hand {
+    grid-template-columns: 1fr;
+  }
+
+  .card-pair {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .app-shell {
+    width: min(100% - 18px, 1180px);
+    padding-top: 10px;
+  }
+
+  .trainer-header {
+    align-items: flex-start;
+  }
+
+  .mode-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .assist-toggle {
+    margin-left: 0;
+  }
+
+  .training-stage {
+    padding: 10px;
+  }
+
+  .context-strip {
+    grid-template-columns: 1fr;
+    text-align: left;
+  }
+
+  .context-strip span:last-child {
+    text-align: left;
+  }
+
+  .hero-hand {
+    padding: 16px;
+    min-height: auto;
+  }
+
+  .decision-grid,
+  .quick-flow,
+  .hint-stack,
+  .stats-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .decision {
+    min-height: 62px;
+  }
+}
