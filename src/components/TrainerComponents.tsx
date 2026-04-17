@@ -8,18 +8,20 @@ export const CardView = ({ card }: { card: TrainingSpot['cards'][number] }) => (
   </div>
 );
 
-export const HeroHand = ({ spot }: { spot: TrainingSpot }) => (
-  <section className="hero-hand" aria-label="Hero hand">
+export const HeroHand = ({ spot, showDetails }: { spot: TrainingSpot; showDetails: boolean }) => (
+  <section className={`hero-hand ${showDetails ? '' : 'quiz-mode'}`.trim()} aria-label="Hero hand">
     <div className="card-pair">
       {spot.cards.map((card) => (
         <CardView key={`${card.rank}${card.suit}`} card={card} />
       ))}
     </div>
-    <div className="spot-copy">
-      <span className="eyebrow">Hero hand</span>
-      <h2>{spot.cards.map(formatCard).join(' ')}</h2>
-      <p>{spot.handClass}</p>
-    </div>
+    {showDetails && (
+      <div className="spot-copy">
+        <span className="eyebrow">Hero hand</span>
+        <h2>{spot.cards.map(formatCard).join(' ')}</h2>
+        <p>{spot.handClass}</p>
+      </div>
+    )}
   </section>
 );
 

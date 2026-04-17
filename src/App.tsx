@@ -12,9 +12,10 @@ const modes: DrillMode[] = ['full-ring', 'six-max', 'position-drill', 'hand-clas
 
 export default function App() {
   const [mode, setMode] = useState<DrillMode>('six-max');
-  const [hintAssisted, setHintAssisted] = useState(true);
+  // Default to quiz mode: no hints or labels on first load.
+  const [hintAssisted, setHintAssisted] = useState(false);
   const [spot, setSpot] = useState<TrainingSpot>(() => generateSpot('six-max'));
-  const [revealedHints, setRevealedHints] = useState(1);
+  const [revealedHints, setRevealedHints] = useState(0);
   const [feedback, setFeedback] = useState<Feedback | null>(null);
   const [stats, setStats] = useState(createStats);
   const [showHelp, setShowHelp] = useState(false);
@@ -28,14 +29,14 @@ export default function App() {
   const nextHand = () => {
     setSpot((current) => generateSpot(mode, current));
     setFeedback(null);
-    setRevealedHints(hintAssisted ? 1 : 0);
+    setRevealedHints(0);
   };
 
   const selectMode = (nextMode: DrillMode) => {
     setMode(nextMode);
     setSpot((current) => generateSpot(nextMode, current));
     setFeedback(null);
-    setRevealedHints(hintAssisted ? 1 : 0);
+    setRevealedHints(0);
   };
 
   const answer = (action: TrainerAction) => {
@@ -49,7 +50,7 @@ export default function App() {
     const onKeyDown = (event: KeyboardEvent) => {
       const key = event.key.toLowerCase();
       if (key === 'n') nextHand();
-      if (key === 'h') setRevealedHints((value) => Math.min(3, value + 1));
+      if (key === 'h' && hintAssisted) setRevealedHints((value) => Math.min(3, value + 1));
       if (!feedback) {
         if (key === 'f') answer('fold');
         if (key === 'c' && spot.facingAction === 'facing-open') answer('call');
@@ -84,8 +85,11 @@ export default function App() {
             <button
               className={hintAssisted ? 'active assist-toggle' : 'assist-toggle'}
               onClick={() => {
-                setHintAssisted((value) => !value);
-                setRevealedHints(hintAssisted ? 0 : 1);
+                setHintAssisted((value) => {
+                  const nextValue = !value;
+                  if (!nextValue) setRevealedHints(0);
+                  return nextValue;
+                });
               }}
             >
               Hints {hintAssisted ? 'On' : 'Off'}
@@ -99,20 +103,22 @@ export default function App() {
               <span>{spot.facingAction === 'first-in' ? 'First in' : `Facing ${spot.openerPosition ?? 'an'} open`}</span>
             </div>
 
-            <HeroHand spot={spot} />
+            <HeroHand spot={spot} showDetails={!!feedback} />
 
             <section className="decision-panel">
               <p>{spot.prompt}</p>
               <ActionButtons facingOpen={spot.facingAction === 'facing-open'} disabled={!!feedback} onPick={answer} />
               <div className="quick-flow">
-                <button onClick={() => setRevealedHints((value) => Math.min(3, value + 1))}>Reveal Hint</button>
+                <button disabled={!hintAssisted} onClick={() => setRevealedHints((value) => Math.min(3, value + 1))}>
+                  Reveal Hint
+                </button>
                 <button className="next-hand" onClick={nextHand}>
                   Next Hand
                 </button>
               </div>
             </section>
 
-            <HintPanel hints={hints} revealed={revealedHints} />
+            {hintAssisted && revealedHints > 0 && <HintPanel hints={hints} revealed={revealedHints} />}
 
             {feedback && <FeedbackPanel feedback={feedback} />}
           </div>
